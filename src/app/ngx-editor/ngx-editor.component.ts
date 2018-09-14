@@ -1,6 +1,12 @@
 import {
-  Component, OnInit, Input, Output, ViewChild,
-  EventEmitter, Renderer2, forwardRef
+  Component,
+  OnInit,
+  Input,
+  Output,
+  ViewChild,
+  EventEmitter,
+  Renderer2,
+  forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
@@ -22,9 +28,7 @@ import * as Utils from './common/utils/ngx-editor.utils';
     }
   ]
 })
-
 export class NgxEditorComponent implements OnInit, ControlValueAccessor {
-
   /** Specifies weather the textarea to be editable or not */
   @Input() editable: boolean;
   /** The spellcheck property specifies whether the element is to have its spelling and grammar checked or not. */
@@ -74,6 +78,8 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
   @Input() enableToolbar: boolean;
   /** Endpoint for which the image to be uploaded */
   @Input() imageEndPoint: string;
+  /** Specifies whether we should only show main toolbar by default */
+  @Input() showMainToolbarOnly: boolean = true;
 
   /** emits `blur` event when focused out from the textarea */
   @Output() blur: EventEmitter<string> = new EventEmitter<string>();
@@ -96,7 +102,8 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
   constructor(
     private _messageService: MessageService,
     private _commandExecutor: CommandExecutorService,
-    private _renderer: Renderer2) { }
+    private _renderer: Renderer2
+  ) {}
 
   /**
    * events
@@ -116,7 +123,6 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
    * @param html html string from contenteditable
    */
   onContentChange(html: string): void {
-
     if (typeof this.onChange === 'function') {
       this.onChange(html);
       this.togglePlaceholder(html);
@@ -126,7 +132,6 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
   }
 
   onTextAreaBlur(): void {
-
     /** save selection if focussed out */
     this._commandExecutor.savedSelection = Utils.saveSelection();
 
@@ -156,7 +161,6 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
    * @param commandName name of the command to be executed
    */
   executeCommand(commandName: string): void {
-
     try {
       this._commandExecutor.execute(commandName);
     } catch (error) {
@@ -172,10 +176,14 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
    * @param value value to be executed when there is a change in contenteditable
    */
   writeValue(value: any): void {
-
     this.togglePlaceholder(value);
 
-    if (value === null || value === undefined || value === '' || value === '<br>') {
+    if (
+      value === null ||
+      value === undefined ||
+      value === '' ||
+      value === '<br>'
+    ) {
       value = null;
     }
 
@@ -209,7 +217,11 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
    */
   refreshView(value: string): void {
     const normalizedValue = value === null ? '' : value;
-    this._renderer.setProperty(this.textArea.nativeElement, 'innerHTML', normalizedValue);
+    this._renderer.setProperty(
+      this.textArea.nativeElement,
+      'innerHTML',
+      normalizedValue
+    );
     return;
   }
 
@@ -220,9 +232,15 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
    */
   togglePlaceholder(value: any): void {
     if (!value || value === '<br>' || value === '') {
-      this._renderer.addClass(this.ngxWrapper.nativeElement, 'show-placeholder');
+      this._renderer.addClass(
+        this.ngxWrapper.nativeElement,
+        'show-placeholder'
+      );
     } else {
-      this._renderer.removeClass(this.ngxWrapper.nativeElement, 'show-placeholder');
+      this._renderer.removeClass(
+        this.ngxWrapper.nativeElement,
+        'show-placeholder'
+      );
     }
     return;
   }
@@ -251,12 +269,14 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
     /**
      * set configuartion
      */
-    this.config = this.Utils.getEditorConfiguration(this.config, ngxEditorConfig, this.getCollectiveParams());
+    this.config = this.Utils.getEditorConfiguration(
+      this.config,
+      ngxEditorConfig,
+      this.getCollectiveParams()
+    );
 
     this.height = this.height || this.textArea.nativeElement.offsetHeight;
 
     this.executeCommand('enableObjectResizing');
-
   }
-
 }

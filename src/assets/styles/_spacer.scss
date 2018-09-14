@@ -1,0 +1,66 @@
+@import 'variables';
+
+.lsn-spacer {
+  display: block;
+  height: $spacer-30;
+  clear: both;
+
+  &--5 {
+    height: $spacer-5;
+  }
+
+  &--10 {
+    height: $spacer-10;
+  }
+
+  &--15 {
+    height: $spacer-15;
+  }
+
+  &--30 {
+    height: $spacer-30;
+  }
+
+  &--45 {
+    height: $spacer-45;
+  }
+
+  &--60 {
+    height: $spacer-60;
+  }
+
+  &--header {
+    height: $header-height;
+  }
+}
+
+.lsn-vspacer {
+  display: inline-block;
+  height: 1px;
+  width: $spacer-30;
+  clear: both;
+
+  &--5 {
+    width: $spacer-5;
+  }
+
+  &--10 {
+    width: $spacer-10;
+  }
+
+  &--15 {
+    width: $spacer-15;
+  }
+
+  &--30 {
+    width: $spacer-30;
+  }
+
+  &--45 {
+    width: $spacer-45;
+  }
+
+  &--60 {
+    width: $spacer-60;
+  }
+}
