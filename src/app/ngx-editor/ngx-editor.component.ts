@@ -79,7 +79,7 @@ export class NgxEditorComponent implements OnInit, ControlValueAccessor {
   /** Endpoint for which the image to be uploaded */
   @Input() imageEndPoint: string;
   /** Specifies whether we should only show main toolbar by default */
-  @Input() showMainToolbarOnly: boolean = true;
+  @Input() showMainToolbarOnly = true;
 
   /** emits `blur` event when focused out from the textarea */
   @Output() blur: EventEmitter<string> = new EventEmitter<string>();
